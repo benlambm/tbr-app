@@ -2,7 +2,7 @@
 
 A small Spring Boot full-stack demo built for ITP246. Tracks three categories of "to be read / watched / heard" items with a homepage overview and three themed subpages: a library (books), a cinema (movies), and a discotheque (music).
 
-**Live deployment:** _add your Render URL here after deploying_
+**Live deployment:** https://tbr-app.onrender.com
 
 ---
 
