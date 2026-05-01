@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Add to TBR', null)}"></head>
+<body>
+
+<nav th:replace="~{fragments/layout :: nav}"></nav>
+<div th:replace="~{fragments/layout :: flash}"></div>
+
+<main class="form-card">
+    <h1 th:text="${formMode} + ' a TBR item'">Add a TBR item</h1>
+
+    <form th:action="${item.id != null} ? @{'/edit/' + ${item.id}} : @{/add}"
+          th:object="${item}" method="post" novalidate>
+
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" id="title" th:field="*{title}" placeholder="What's it called?">
+            <div class="field-error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">title error</div>
+        </div>
+
+        <div class="form-group">
+            <label for="creator">Author / Director / Artist <span style="opacity:0.5">(optional)</span></label>
+            <input type="text" id="creator" th:field="*{creator}" placeholder="Who made it?">
+        </div>
+
+        <div class="form-group">
+            <label>Category <span style="color: #b00020;">*</span></label>
+            <div class="radio-group">
+                <label th:each="cat : ${categories}">
+                    <input type="radio" th:field="*{category}" th:value="${cat}">
+                    <span th:text="${cat.displayName}">Book</span>
+                </label>
+            </div>
+            <div class="field-error" th:if="${#fields.hasErrors('category')}" th:errors="*{category}">category error</div>
+        </div>
+
+        <div class="form-group">
+            <label for="notes">Notes <span style="opacity:0.5">(optional)</span></label>
+            <textarea id="notes" th:field="*{notes}" placeholder="Why did you add this? Where'd you hear about it?"></textarea>
+        </div>
+
+        <div style="display: flex; gap: 1rem; align-items: center; margin-top: 2rem;">
+            <button type="submit" class="btn-primary" th:text="${formMode} == 'Edit' ? 'Save changes' : 'Add to TBR'">Add to TBR</button>
+            <a href="/" class="btn-secondary">Cancel</a>
+        </div>
+    </form>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Books TBR — The Library', 'library')}"></head>
+<body class="theme-library">
+
+<nav th:replace="~{fragments/layout :: nav}"></nav>
+<div th:replace="~{fragments/layout :: flash}"></div>
+
+<header class="theme-header">
+    <span class="pre-label">A Catalog of</span>
+    <h1>Books to Be Read</h1>
+    <p class="subtitle">Quiet promises to your future self.</p>
+</header>
+
+<main class="page-container">
+
+    <div class="theme-action-bar">
+        <a href="/add?category=BOOK">+ Catalog a new volume</a>
+    </div>
+
+    <div class="item-list" th:if="${not #lists.isEmpty(items)}">
+        <article class="item-card" th:each="item : ${items}" th:classappend="${item.completed} ? 'completed' : ''">
+            <div>
+                <h3 class="item-title" th:text="${item.title}">Title</h3>
+                <p class="item-creator" th:if="${item.creator}" th:text="'by ' + ${item.creator}">Author</p>
+                <p class="item-notes" th:if="${item.notes}" th:text="${item.notes}">Notes</p>
+                <p class="item-meta">
+                    Added <span th:text="${#temporals.format(item.addedAt, 'MMM d, yyyy')}">date</span>
+                    <span th:if="${item.completed}"> · finished</span>
+                </p>
+            </div>
+            <div class="item-actions">
+                <form th:action="@{'/toggle/' + ${item.id}}" method="post">
+                    <button class="btn-icon" type="submit" th:text="${item.completed} ? 'Reopen' : 'Mark read'">Mark read</button>
+                </form>
+                <a class="btn-icon" th:href="@{'/edit/' + ${item.id}}">Edit</a>
+                <form th:action="@{'/delete/' + ${item.id}}" method="post"
+                      onsubmit="return confirm('Remove this volume from the catalog?');">
+                    <button class="btn-icon" type="submit">Remove</button>
+                </form>
+            </div>
+        </article>
+    </div>
+
+    <div class="empty-state" th:if="${#lists.isEmpty(items)}">
+        The shelves stand empty. Begin a new chapter.
+    </div>
+
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+
+</body>
+</html>

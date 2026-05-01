@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title, themeCss)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">TBR</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:if="${themeCss}" th:href="@{'/css/' + ${themeCss} + '.css'}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;700&family=Crimson+Pro:wght@400;500;600&family=Bebas+Neue&family=DM+Mono:wght@400;500&family=Audiowide&family=Quicksand:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<nav th:fragment="nav" class="site-nav">
+    <a href="/" class="brand">TBR</a>
+    <div class="nav-links">
+        <a href="/books">Books</a>
+        <a href="/movies">Movies</a>
+        <a href="/music">Music</a>
+        <a href="/add" class="nav-cta">+ Add</a>
+    </div>
+</nav>
+
+<div th:fragment="flash" th:if="${flash}" class="flash" th:text="${flash}"></div>
+
+<footer th:fragment="footer" class="site-footer">
+    <span>TBR demo &middot; ITP246 final project &middot; <a href="https://github.com/blamb/tbr-app">source</a></span>
+</footer>
+
+</body>
+</html>

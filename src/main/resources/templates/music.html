@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Music TBR — The Floor', 'disco')}"></head>
+<body class="theme-disco">
+
+<nav th:replace="~{fragments/layout :: nav}"></nav>
+<div th:replace="~{fragments/layout :: flash}"></div>
+
+<header class="theme-header">
+    <div class="disco-ball"></div>
+    <span class="pre-label">Spinning Tonight</span>
+    <h1>Music to Be Heard</h1>
+    <p class="subtitle">Records, mixes, sets you swore you'd queue up.</p>
+</header>
+
+<main class="page-container">
+
+    <div class="theme-action-bar">
+        <a href="/add?category=MUSIC">+ Drop a new track</a>
+    </div>
+
+    <div class="item-list" th:if="${not #lists.isEmpty(items)}">
+        <article class="item-card" th:each="item : ${items}" th:classappend="${item.completed} ? 'completed' : ''">
+            <div>
+                <h3 class="item-title" th:text="${item.title}">Title</h3>
+                <p class="item-creator" th:if="${item.creator}" th:text="${item.creator}">Artist</p>
+                <p class="item-notes" th:if="${item.notes}" th:text="${item.notes}">Notes</p>
+                <p class="item-meta">
+                    Queued <span th:text="${#temporals.format(item.addedAt, 'MMM d, yyyy')}">date</span>
+                    <span th:if="${item.completed}"> · spun</span>
+                </p>
+            </div>
+            <div class="item-actions">
+                <form th:action="@{'/toggle/' + ${item.id}}" method="post">
+                    <button class="btn-icon" type="submit" th:text="${item.completed} ? 'Re-spin' : 'Mark spun'">Mark spun</button>
+                </form>
+                <a class="btn-icon" th:href="@{'/edit/' + ${item.id}}">Edit</a>
+                <form th:action="@{'/delete/' + ${item.id}}" method="post"
+                      onsubmit="return confirm('Drop this from the rotation?');">
+                    <button class="btn-icon" type="submit">Drop</button>
+                </form>
+            </div>
+        </article>
+    </div>
+
+    <div class="empty-state" th:if="${#lists.isEmpty(items)}">
+        Booth is empty. Cue the first record.
+    </div>
+
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+
+</body>
+</html>

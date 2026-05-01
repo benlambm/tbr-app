@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('TBR — Books, Movies, Music', null)}"></head>
+<body>
+
+<nav th:replace="~{fragments/layout :: nav}"></nav>
+<div th:replace="~{fragments/layout :: flash}"></div>
+
+<header class="home-hero">
+    <h1>To Be Read. To Be Watched. To Be Heard.</h1>
+    <p class="tagline">Three lists, three moods. Add a book, a movie, or a record. Forget about it for a while. Come back when you're in the right headspace.</p>
+    <div class="count">
+        <span th:text="${totalCount}">0</span> items on the list
+    </div>
+</header>
+
+<section class="home-grid">
+
+    <a href="/books" class="home-section books">
+        <div class="home-section-header">
+            <span class="label">Section I</span>
+            <h2 style="font-family: 'Cormorant Garamond', serif;">Books</h2>
+        </div>
+        <ul class="home-section-list">
+            <li th:each="b : ${books}" th:classappend="${b.completed} ? 'completed' : ''">
+                <strong th:text="${b.title}">Title</strong>
+                <span th:if="${b.creator}" th:text="' — ' + ${b.creator}"> — Author</span>
+            </li>
+            <li th:if="${#lists.isEmpty(books)}" style="opacity: 0.5; font-style: italic;">
+                Nothing yet. Add the first.
+            </li>
+        </ul>
+        <div class="home-section-cta">Open the library →</div>
+    </a>
+
+    <a href="/movies" class="home-section movies">
+        <div class="home-section-header">
+            <span class="label">Section II</span>
+            <h2 style="font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.05em;">Movies</h2>
+        </div>
+        <ul class="home-section-list">
+            <li th:each="m : ${movies}" th:classappend="${m.completed} ? 'completed' : ''">
+                <strong th:text="${m.title}">Title</strong>
+                <span th:if="${m.creator}" th:text="' — ' + ${m.creator}"> — Director</span>
+            </li>
+            <li th:if="${#lists.isEmpty(movies)}" style="opacity: 0.5; font-style: italic;">
+                Nothing yet. Add the first.
+            </li>
+        </ul>
+        <div class="home-section-cta">Step into the cinema →</div>
+    </a>
+
+    <a href="/music" class="home-section music">
+        <div class="home-section-header">
+            <span class="label">Section III</span>
+            <h2 style="font-family: 'Audiowide', sans-serif;">Music</h2>
+        </div>
+        <ul class="home-section-list">
+            <li th:each="t : ${music}" th:classappend="${t.completed} ? 'completed' : ''">
+                <strong th:text="${t.title}">Title</strong>
+                <span th:if="${t.creator}" th:text="' — ' + ${t.creator}"> — Artist</span>
+            </li>
+            <li th:if="${#lists.isEmpty(music)}" style="opacity: 0.5; font-style: italic;">
+                Nothing yet. Add the first.
+            </li>
+        </ul>
+        <div class="home-section-cta">Hit the floor →</div>
+    </a>
+
+</section>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Movies TBR — The Cinema', 'cinema')}"></head>
+<body class="theme-cinema">
+
+<nav th:replace="~{fragments/layout :: nav}"></nav>
+<div th:replace="~{fragments/layout :: flash}"></div>
+
+<header class="theme-header">
+    <span class="pre-label">Now Showing</span>
+    <h1>Movies to Be Watched</h1>
+    <div class="marquee">
+        <span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <p class="subtitle">Two hours of someone else's problem.</p>
+</header>
+
+<main class="page-container">
+
+    <div class="theme-action-bar">
+        <a href="/add?category=MOVIE">+ Add to the bill</a>
+    </div>
+
+    <div class="item-list" th:if="${not #lists.isEmpty(items)}">
+        <article class="item-card" th:each="item : ${items}" th:classappend="${item.completed} ? 'completed' : ''">
+            <div>
+                <h3 class="item-title" th:text="${item.title}">Title</h3>
+                <p class="item-creator" th:if="${item.creator}" th:text="'dir. ' + ${item.creator}">Director</p>
+                <p class="item-notes" th:if="${item.notes}" th:text="${item.notes}">Notes</p>
+                <p class="item-meta">
+                    Booked <span th:text="${#temporals.format(item.addedAt, 'MMM d, yyyy')}">date</span>
+                    <span th:if="${item.completed}"> · screened</span>
+                </p>
+            </div>
+            <div class="item-actions">
+                <form th:action="@{'/toggle/' + ${item.id}}" method="post">
+                    <button class="btn-icon" type="submit" th:text="${item.completed} ? 'Re-screen' : 'Mark seen'">Mark seen</button>
+                </form>
+                <a class="btn-icon" th:href="@{'/edit/' + ${item.id}}">Edit</a>
+                <form th:action="@{'/delete/' + ${item.id}}" method="post"
+                      onsubmit="return confirm('Pull this from the bill?');">
+                    <button class="btn-icon" type="submit">Cut</button>
+                </form>
+            </div>
+        </article>
+    </div>
+
+    <div class="empty-state" th:if="${#lists.isEmpty(items)}">
+        The marquee is dark. Book the first feature.
+    </div>
+
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+
+</body>
+</html>

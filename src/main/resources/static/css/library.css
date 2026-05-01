@@ -1,0 +1,127 @@
+/* ============================================================
+   library.css — Books TBR theme
+   Mood: old-library, parchment, warm wood, serif gravitas
+   ============================================================ */
+
+:root {
+    --bg: #f0e6d2;
+    --paper: #f9f3e3;
+    --ink: #2c1810;
+    --ink-soft: #5a3e2b;
+    --gold: #a8762e;
+    --gold-bright: #d4a566;
+    --wood: #3d2817;
+    --rule: rgba(44, 24, 16, 0.18);
+}
+
+body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Crimson Pro', 'Georgia', serif;
+    background-image:
+        radial-gradient(ellipse at top, rgba(212, 165, 102, 0.08), transparent 60%),
+        repeating-linear-gradient(0deg,
+            transparent 0,
+            transparent 32px,
+            rgba(168, 118, 46, 0.04) 32px,
+            rgba(168, 118, 46, 0.04) 33px);
+}
+
+.theme-library .page-container { padding-top: 2rem; }
+
+.theme-header {
+    text-align: center;
+    padding: 3.5rem 2rem 2rem;
+    border-bottom: 3px double var(--wood);
+    margin-bottom: 3rem;
+    position: relative;
+}
+.theme-header::before, .theme-header::after {
+    content: "❦";
+    position: absolute;
+    bottom: -0.85rem;
+    background: var(--bg);
+    padding: 0 1rem;
+    color: var(--gold);
+    font-size: 1.2rem;
+}
+.theme-header::before { left: calc(50% - 1.5rem); }
+.theme-header::after  { left: calc(50% + 0.5rem); }
+
+.theme-header .pre-label {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+}
+.theme-header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 6vw, 4.5rem);
+    font-weight: 500;
+    margin: 0;
+    color: var(--wood);
+    letter-spacing: -0.01em;
+}
+.theme-header .subtitle {
+    margin-top: 0.75rem;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 1.1rem;
+}
+
+/* Item cards as library catalog cards */
+.item-card {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--wood);
+    box-shadow:
+        0 1px 0 var(--paper),
+        0 2px 4px rgba(60, 40, 23, 0.06);
+    color: var(--ink);
+    position: relative;
+    padding-left: 1.75rem;
+}
+.item-card::before {
+    content: "";
+    position: absolute;
+    left: 0.75rem; top: 0; bottom: 0;
+    width: 1px;
+    background: rgba(168, 118, 46, 0.3);
+}
+.item-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    color: var(--wood);
+}
+.item-creator { font-style: italic; color: var(--ink-soft); }
+.item-meta { color: var(--gold); font-family: 'Crimson Pro', serif; font-style: italic; text-transform: none; letter-spacing: 0; }
+
+.item-actions .btn-icon {
+    border-color: var(--wood);
+    color: var(--wood);
+    font-family: 'Crimson Pro', serif;
+}
+.item-actions .btn-icon:hover { background: var(--wood); color: var(--paper); }
+
+.empty-state { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.3rem; color: var(--ink-soft); }
+.empty-state::before { content: "❧"; display: block; font-size: 2rem; color: var(--gold); margin-bottom: 1rem; }
+
+.theme-action-bar {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1.5rem;
+}
+.theme-action-bar a {
+    background: var(--wood);
+    color: var(--paper);
+    padding: 0.7rem 1.5rem;
+    text-decoration: none;
+    font-family: 'Crimson Pro', serif;
+    letter-spacing: 0.05em;
+    border-radius: 2px;
+}
+.theme-action-bar a:hover { background: var(--gold); color: var(--ink); }
