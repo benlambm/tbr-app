@@ -99,9 +99,6 @@ EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]
 ```
 
-> ⚠️ **Use `eclipse-temurin`, not `openjdk`.** The `openjdk` Docker image was deprecated in 2022. Eclipse Temurin is the maintained successor.
->
-> ⚠️ **Both paths must be absolute** (`/app/app.jar`). Mixing relative and absolute paths on the COPY and ENTRYPOINT lines will build successfully and then fail at runtime with `Error: Unable to access jarfile`.
 
 ### `.gitignore` — exclude build output
 
@@ -196,11 +193,9 @@ gh repo create your-app-name --public --source=. --push
    | `SPRING_PROFILES_ACTIVE` | `prod` |
    | `JDBC_DATABASE_URL` | *(your JDBC URL from Phase 2)* |
 
-5. Click **Advanced.** ⚠️ **Critical:** find **Health Check Path** and **clear the field.** Render pre-fills it with `/healthz`, which your app does not have. If you leave it, Render will return 404, mark your service unhealthy, and restart it in a loop.
+5. Leave everything else at default. Click **Create Web Service.**
 
-6. Leave everything else at default. Click **Create Web Service.**
-
-7. Watch the build logs. **First build is 5–8 minutes** (Maven downloads dependencies into the Docker layer cache); subsequent builds are ~3 minutes thanks to caching.
+6. Watch the build logs. **First build is 5–8 minutes** (Maven downloads dependencies into the Docker layer cache); subsequent builds are ~3 minutes thanks to caching.
 
 ✅ **Verify:** When the logs show `Started YourApplication in X.XXX seconds`, open `https://your-app-name.onrender.com` in a browser. Your home page should load.
 
@@ -238,48 +233,6 @@ Render detects the push within ~30 seconds and starts a new build automatically.
 
 ---
 
-## Common errors and fixes
-
-| Symptom | Cause | Fix |
-|---|---|---|
-| `Error: Unable to access jarfile /app.jar` | Dockerfile path mismatch | Use the Dockerfile in Phase 0 verbatim. Both paths must be absolute (`/app/app.jar`). |
-| Build succeeds but service is "Unhealthy," restarts forever | Health Check Path is `/healthz` — your app returns 404 | Render dashboard → Settings → Health Check Path → clear the field → Save. |
-| `FATAL: password authentication failed for user "neondb_owner"` | Malformed JDBC URL | Re-do the Phase 2 conversion. Credentials live in the query string (`&user=...&password=...`), not in `user:pass@host` form. |
-| `Driver org.h2.Driver claims to not accept jdbcUrl jdbc:postgresql://...` | `SPRING_PROFILES_ACTIVE` not set — app loaded H2 config | Render dashboard → Environment → confirm `SPRING_PROFILES_ACTIVE=prod` is present. Save (triggers redeploy). |
-| Data resets every redeploy | App is writing to H2 file on Render's ephemeral disk | Use external Postgres (Neon). Render's free-tier filesystem is wiped on every restart. |
-| First request after sleep takes 30–60 seconds | Cold start (Render free tier) | Expected. Mention it in any live demo. Pre-warm by visiting the URL ~2 minutes before showing it. |
-| `Whitelabel Error Page` after a working deploy | Your app started, but a route is broken | Check Render logs for stack traces. Usually a JPA/Hibernate dialect mismatch with Postgres. |
-
----
-
-## Security checklist
-
-- [ ] `application-prod.properties` references `${JDBC_DATABASE_URL}` — never a hardcoded URL
-- [ ] No passwords or secrets in any committed file (run `git log -p | grep -i password` to double-check)
-- [ ] No secrets pasted into AI chat logs, public Discord, screenshots, or screen recordings
-- [ ] If a credential is exposed, **rotate it immediately:** Neon → Roles → Reset password, then update the `JDBC_DATABASE_URL` env var on Render
-- [ ] Repo is public **only** because it contains no secrets
-
----
-
-## What this SOP does NOT cover
-
-- Custom domain names (paid)
-- HTTPS certificates (Render auto-handles via Let's Encrypt — no action needed)
-- Email, file uploads, OAuth, payment processing — out of scope for the final project
-- Scaling beyond one free dyno (paid plans)
-
----
-
-## Submission checklist
-
-- [ ] Code in a public GitHub repo
-- [ ] Live deployment URL on Render
-- [ ] `README.md` includes the live URL near the top
-- [ ] App demonstrates CRUD + persistence (add data, sleep 16 min, reload, data still there)
-- [ ] Tests pass (`mvn test`)
-
----
 
 ## Reference
 
