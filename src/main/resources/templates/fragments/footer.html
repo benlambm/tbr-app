@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<footer th:fragment="footer" class="site-footer">
+
+    <div class="footer-grid">
+
+        <div class="footer-brand">
+            <div class="footer-brand-name">TBR</div>
+            <p class="footer-brand-blurb">
+                Three lists, three moods.<br>
+                A library, a cinema, a disco club.
+            </p>
+        </div>
+
+        <nav class="footer-col" aria-label="Site sections">
+            <h3 class="footer-col-heading">Explore</h3>
+            <ul>
+                <li><a href="/books">The Library</a></li>
+                <li><a href="/movies">The Cinema</a></li>
+                <li><a href="/music">The Disco Club</a></li>
+                <li><a href="/add">+ Add an item</a></li>
+            </ul>
+        </nav>
+
+        <nav class="footer-col" aria-label="Project links">
+            <h3 class="footer-col-heading">Project</h3>
+            <ul>
+                <li><a href="https://github.com/benlambm/tbr-app#readme" target="_blank" rel="noopener">About</a></li>
+                <li><a href="https://github.com/benlambm/tbr-app" target="_blank" rel="noopener">Source on GitHub</a></li>
+                <li><a href="https://github.com/benlambm/tbr-app/issues" target="_blank" rel="noopener">Issues</a></li>
+                <li><a href="https://github.com/benlambm/tbr-app/issues/new" target="_blank" rel="noopener">Report a bug</a></li>
+                <li><a href="https://github.com/benlambm" target="_blank" rel="noopener">Contact maintainer</a></li>
+            </ul>
+        </nav>
+
+    </div>
+
+    <div class="footer-bottom">
+        <span>&copy; 2026 TBR demo</span>
+        <span class="footer-sep">&middot;</span>
+        <span>ITP246 final project, VWCC</span>
+        <span class="footer-sep">&middot;</span>
+        <span>Built with Spring Boot, deployed on Render</span>
+    </div>
+
+</footer>
+
+</body>
+</html>

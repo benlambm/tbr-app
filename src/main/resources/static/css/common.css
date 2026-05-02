@@ -228,12 +228,95 @@ a { color: inherit; }
 
 /* --- Footer --- */
 .site-footer {
-    margin-top: 4rem;
-    padding: 2rem;
-    text-align: center;
-    font-size: 0.82rem;
+    margin-top: 5rem;
+    padding: 3rem 2.5rem 1.5rem;
+    background: #0f0f0f;
+    color: #d6d6d6;
+    border-top: 3px solid #ffbe0b;
+}
+.site-footer a {
+    color: #d6d6d6;
+    text-decoration: none;
+    transition: color 0.15s;
+}
+.site-footer a:hover {
+    color: #ffbe0b;
+}
+
+.footer-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.footer-brand-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    color: #ffbe0b;
+    margin-bottom: 0.75rem;
+}
+.footer-brand-blurb {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    opacity: 0.7;
+    max-width: 28ch;
+    margin: 0;
+}
+
+.footer-col-heading {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: #ffbe0b;
+    margin: 0 0 1rem;
+}
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+.footer-col li a {
+    font-size: 0.92rem;
+    line-height: 1.4;
+}
+
+.footer-bottom {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding-top: 1.25rem;
+    font-size: 0.78rem;
     opacity: 0.55;
-    border-top: 1px solid rgba(0,0,0,0.06);
+    text-align: center;
+}
+.footer-bottom .footer-sep {
+    margin: 0 0.6em;
+    opacity: 0.5;
+}
+
+@media (max-width: 720px) {
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    .footer-bottom {
+        text-align: left;
+    }
+    .footer-bottom .footer-sep {
+        display: block;
+        height: 0.4rem;
+        margin: 0;
+        font-size: 0;
+    }
 }
 
 /* --- Homepage three-section grid --- */
