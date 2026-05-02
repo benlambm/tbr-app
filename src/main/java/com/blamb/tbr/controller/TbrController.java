@@ -13,6 +13,18 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Web controller for the whole app — home, three category pages, plus
+ * add/edit/delete/toggle.
+ *
+ * Two patterns worth noticing:
+ *   - Post-Redirect-Get: every form submission ends with `return "redirect:/..."`
+ *     instead of rendering a view directly. This means a refresh on the result
+ *     page won't re-submit the form. Standard web hygiene.
+ *   - RedirectAttributes flash: addFlashAttribute("flash", ...) survives exactly
+ *     one redirect, then disappears. That's how the green confirmation banner
+ *     ("Added 'Title' to your Book list.") shows up after a save.
+ */
 @Controller
 public class TbrController {
 
