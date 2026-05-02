@@ -22,8 +22,8 @@
 
     <a href="/books" class="home-section books">
         <div class="home-section-header">
-            <span class="label">Section I</span>
-            <h2 style="font-family: 'Cormorant Garamond', serif;">Books (TBR)</h2>
+            <span class="label">I. TBR</span>
+            <h2 style="font-family: 'Cormorant Garamond', serif;">Books</h2>
         </div>
         <ul class="home-section-list">
             <li th:each="b : ${books}" th:classappend="${b.completed} ? 'completed' : ''">
@@ -39,8 +39,8 @@
 
     <a href="/movies" class="home-section movies">
         <div class="home-section-header">
-            <span class="label">Section II</span>
-            <h2 style="font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.05em;">Movies/TV (TBW)</h2>
+            <span class="label">II. TBW</span>
+            <h2 style="font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.05em;">Movies/TV</h2>
         </div>
         <ul class="home-section-list">
             <li th:each="m : ${movies}" th:classappend="${m.completed} ? 'completed' : ''">
@@ -56,8 +56,8 @@
 
     <a href="/music" class="home-section music">
         <div class="home-section-header">
-            <span class="label">Section III</span>
-            <h2 style="font-family: 'Audiowide', sans-serif;">Music (TBL)</h2>
+            <span class="label">III. TBL</span>
+            <h2 style="font-family: 'Audiowide', sans-serif;">Music</h2>
         </div>
         <ul class="home-section-list">
             <li th:each="t : ${music}" th:classappend="${t.completed} ? 'completed' : ''">
