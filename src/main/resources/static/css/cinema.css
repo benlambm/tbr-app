@@ -7,10 +7,10 @@
     --bg: #0a0a0a;
     --bg-elev: #161616;
     --crimson: #dc143c;
-    --gold: #d4af37;
-    --gold-bright: #f5d76e;
+    --gold: #ffbe0b;
+    --gold-bright: #ffd13f;
     --ivory: #f0ede4;
-    --rule: rgba(212, 175, 55, 0.18);
+    --rule: rgba(255, 190, 11, 0.18);
 }
 
 body {
@@ -19,7 +19,7 @@ body {
     font-family: 'Space Grotesk', sans-serif;
     background-image:
         radial-gradient(ellipse 80% 50% at 50% 0%, rgba(220, 20, 60, 0.12), transparent 70%),
-        radial-gradient(ellipse 60% 40% at 50% 100%, rgba(212, 175, 55, 0.08), transparent 70%);
+        radial-gradient(ellipse 60% 40% at 50% 100%, rgba(255, 190, 11, 0.08), transparent 70%);
     min-height: 100vh;
 }
 
@@ -32,8 +32,8 @@ body {
         repeating-linear-gradient(0deg,
             transparent 0,
             transparent 20px,
-            rgba(212, 175, 55, 0.05) 20px,
-            rgba(212, 175, 55, 0.05) 22px);
+            rgba(255, 190, 11, 0.05) 20px,
+            rgba(255, 190, 11, 0.05) 22px);
 }
 .theme-cinema::before, .theme-cinema::after {
     content: "";
@@ -75,13 +75,13 @@ body {
     color: var(--gold);
     letter-spacing: 0.05em;
     text-shadow:
-        0 0 12px rgba(212, 175, 55, 0.3),
+        0 0 12px rgba(255, 190, 11, 0.3),
         0 2px 0 rgba(0,0,0,0.5);
     animation: marquee-glow 3s ease-in-out infinite alternate;
 }
 @keyframes marquee-glow {
-    from { text-shadow: 0 0 12px rgba(212, 175, 55, 0.3), 0 2px 0 rgba(0,0,0,0.5); }
-    to   { text-shadow: 0 0 24px rgba(212, 175, 55, 0.55), 0 2px 0 rgba(0,0,0,0.5); }
+    from { text-shadow: 0 0 12px rgba(255, 190, 11, 0.3), 0 2px 0 rgba(0,0,0,0.5); }
+    to   { text-shadow: 0 0 24px rgba(255, 190, 11, 0.55), 0 2px 0 rgba(0,0,0,0.5); }
 }
 .theme-header .subtitle {
     color: var(--ivory);
@@ -105,7 +105,7 @@ body {
     width: 12px; height: 12px;
     border-radius: 50%;
     background: var(--gold);
-    box-shadow: 0 0 8px rgba(212, 175, 55, 0.7);
+    box-shadow: 0 0 8px rgba(255, 190, 11, 0.7);
     animation: bulb 1.4s ease-in-out infinite;
 }
 .marquee span:nth-child(2) { animation-delay: 0.2s; }
@@ -113,8 +113,8 @@ body {
 .marquee span:nth-child(4) { animation-delay: 0.6s; }
 .marquee span:nth-child(5) { animation-delay: 0.8s; }
 @keyframes bulb {
-    0%, 100% { opacity: 1; box-shadow: 0 0 8px rgba(212, 175, 55, 0.7); }
-    50%      { opacity: 0.4; box-shadow: 0 0 4px rgba(212, 175, 55, 0.3); }
+    0%, 100% { opacity: 1; box-shadow: 0 0 8px rgba(255, 190, 11, 0.7); }
+    50%      { opacity: 0.4; box-shadow: 0 0 4px rgba(255, 190, 11, 0.3); }
 }
 
 /* Item cards as movie tickets */

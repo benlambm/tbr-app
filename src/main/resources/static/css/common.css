@@ -370,7 +370,7 @@ a { color: inherit; }
 }
 .home-section.movies .home-section-header { background: #dc143c; color: #fff; }
 .home-section.movies .home-section-list li { border-bottom-color: rgba(255,255,255,0.08); }
-.home-section.movies .home-section-cta { background: #d4af37; color: #0a0a0a; }
+.home-section.movies .home-section-cta { background: #ffbe0b; color: #0a0a0a; }
 
 .home-section.music {
     background: linear-gradient(135deg, #ff006e 0%, #8338ec 50%, #3a86ff 100%);
