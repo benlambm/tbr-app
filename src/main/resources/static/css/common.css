@@ -42,6 +42,7 @@ a { color: inherit; }
     font-weight: 600;
     letter-spacing: 0.18em;
     text-decoration: none;
+    color: #ffbe0b;
 }
 .site-nav .nav-links { display: flex; gap: 1.5rem; align-items: center; }
 .site-nav .nav-links a {
@@ -54,10 +55,18 @@ a { color: inherit; }
 }
 .site-nav .nav-links a:hover { opacity: 1; }
 .site-nav .nav-cta {
-    border: 1px solid rgba(255,255,255,0.3);
+    background: #ffbe0b;
+    color: #1a0033;
+    border: 1px solid #ffbe0b;
     padding: 0.5rem 1rem;
     border-radius: 4px;
+    font-weight: 700;
     opacity: 1 !important;
+    transition: background 0.15s, transform 0.15s;
+}
+.site-nav .nav-cta:hover {
+    background: #ffd13f;
+    transform: translateY(-1px);
 }
 
 /* --- Flash message --- */
@@ -353,7 +362,7 @@ a { color: inherit; }
     color: #3d2817;
 }
 .home-section.books .home-section-header { background: #3d2817; color: #f5e9d4; }
-.home-section.books .home-section-cta { background: #2c1810; color: #d4a566; }
+.home-section.books .home-section-cta { background: #ffbe0b; color: #000; }
 
 .home-section.movies {
     background: linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 100%);
