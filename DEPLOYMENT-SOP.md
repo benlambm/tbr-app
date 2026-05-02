@@ -2,7 +2,7 @@
 
 **ITP246 — May 2026 edition.** A step-by-step playbook to get your Spring Boot final project live on the public internet with **persistent data**, using only free services and no credit card.
 
-**Total time:** ~25 minutes (including the first Render build).
+**Total time:** ~30 to 60 minutes (depending on experience).
 **Prerequisites:** A working Spring Boot app locally (`mvn spring-boot:run` succeeds, `mvn test` passes), a GitHub account, and `git` installed.
 **Reference implementation:** https://github.com/benlambm/tbr-app — [live demo](https://tbr-app.onrender.com).
 
