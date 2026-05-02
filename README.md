@@ -1,6 +1,6 @@
 # TBR — Books, Movies, Music
 
-A small Spring Boot full-stack demo built for ITP246. Tracks three categories of "to be read (tbr) / watched / heard" items with a homepage overview and three themed subpages: a library (books), a cinema (movies), and a disco club (music).
+A small Spring Boot full-stack demo built for ITP246. Tracks three categories of Culture & entertainment list items with a homepage overview and three themed subpages: a library (books), a cinema (movies), and a disco club (music).
 
 **Live continuous deployment triggered with any GitHub update to:** https://tbr-app.onrender.com
 
