@@ -1,8 +1,8 @@
 # TBR — Books, Movies, Music
 
-A small Spring Boot full-stack demo built for ITP246. Tracks three categories of "to be read / watched / heard" items with a homepage overview and three themed subpages: a library (books), a cinema (movies), and a discotheque (music).
+A small Spring Boot full-stack demo built for ITP246. Tracks three categories of "to be read (tbr) / watched / heard" items with a homepage overview and three themed subpages: a library (books), a cinema (movies), and a disco club (music).
 
-**Live deployment:** https://tbr-app.onrender.com
+**Live continuous deployment triggered with any GitHub update to:** https://tbr-app.onrender.com
 
 ---
 
@@ -12,10 +12,8 @@ A small Spring Boot full-stack demo built for ITP246. Tracks three categories of
 - **Thymeleaf** server-side rendering (per the assignment's Thymeleaf-or-REST requirement)
 - **Spring Data JPA** with two database profiles:
   - **Local dev:** H2 in-memory (resets on restart, sample data via `data.sql`)
-  - **Production:** PostgreSQL via Neon (free tier, persists across Render's sleep cycles)
-- **Bean Validation** on the form (title and category are required)
-- **JUnit 5 / MockMvc** tests covering context load, all routes, persistence, and state changes
-- Three custom CSS themes — bold, no Bootstrap, no AI-generic aesthetics
+  - **Production:** PostgreSQL via Neon (free tier, persists across Render's free restart cycles)
+- **JUnit 5 / MockMvc** tests 
 
 ## Run it locally
 
@@ -33,9 +31,9 @@ mvn test
 
 ## Deploy to Render with persistent Postgres
 
-The free Render tier has an ephemeral filesystem, so any local file-based DB is wiped on every redeploy and likely on every cold-start spin-down. To survive sleep cycles, the production profile points at an external Postgres. Neon's free tier is the right fit: 0.5 GB storage, no expiration, no credit card.
+The free Render tier has an ephemeral filesystem, so any local file-based DB is wiped on every redeploy and likely on every cold-start spin-down. To survive sleep cycles, the production profile points at an external online database (Neon).
 
-### 1. Provision a Neon database
+### 1. Provision a free Neon database
 
 1. Sign up at [neon.tech](https://neon.tech) (GitHub auth works).
 2. Create a project and a database. Default `neondb` is fine.
@@ -65,7 +63,7 @@ git push -u origin main
 3. Settings:
    - **Runtime:** Docker (Render auto-detects the `Dockerfile`)
    - **Instance type:** Free
-   - **Region:** Ohio or Oregon (whichever is closer)
+   - **Region:** (whichever is closer)
 4. **Environment variables:**
 
    | Key                       | Value |
@@ -77,9 +75,9 @@ git push -u origin main
 
 ### 4. Verify
 
-Render gives you a URL like `https://tbr-app-xyz.onrender.com`. Open it. Add a book, a movie, a song. Wait 16 minutes (free tier sleeps after 15 min idle). Reload — your data is still there because Postgres lives in Neon, not in the dyno.
+Render gives you a URL like `https://tbr-app.onrender.com`. Open it. Add a book, a movie, a song. Reload—your data is still there because your database is cloud-native on Neon.
 
-**Cold-start note:** the first request after sleep takes 30–60 seconds. Render shows a loading page while the JAR boots. Mention this in any demo.
+**Cold-start note:** the first request after sleep takes 30–60 seconds. Render shows a loading page while the JAR boots.
 
 ## Project layout
 
@@ -105,8 +103,8 @@ tbr-app/
 
 ## Why H2 in dev, Postgres in prod
 
-H2 in-memory keeps local development fast and zero-setup — anyone with the repo can `mvn spring-boot:run` and have a working app in 30 seconds with sample data. But in-memory means every restart is a fresh database, which is fine for local iteration and bad for a deployed demo where the grader expects their additions to stick. The production profile (`SPRING_PROFILES_ACTIVE=prod`) swaps to Postgres via env vars, with no code changes required. Same JPA entities, same repository, same service layer — Spring profiles handle the dialect and driver swap.
+H2 in-memory keeps local development fast and zero-setup: anyone with the repo can `mvn spring-boot:run` and have a working app in 30 seconds with sample data. But in-memory means every restart is a fresh database, which is fine for local iteration and bad for a deployed demo where the grader expects their additions to stick. The production profile (`SPRING_PROFILES_ACTIVE=prod`) swaps to postgres via env vars for the live online database, with no code changes required. Same JPA entities, same repository, same service layer. Spring **profiles** handle the dialect and driver swap.
 
 ## License
 
-Coursework, not for redistribution.
+VWCC ITP246 2026 Coursework, not for redistribution.
