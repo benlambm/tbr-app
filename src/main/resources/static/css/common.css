@@ -241,6 +241,32 @@ a { color: inherit; }
     margin: 0 0 0.75rem;
     letter-spacing: -0.01em;
 }
+
+/* Three-line themed hero — each line uses its category's signature font */
+.home-hero h1.hero-poem {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    line-height: 1.05;
+    margin: 0 0 1.25rem;
+}
+.hero-poem .line { display: block; }
+.hero-poem .line-books {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 500;
+}
+.hero-poem .line-movies {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 0.04em;
+    font-weight: 400;
+}
+.hero-poem .line-music {
+    font-family: 'Audiowide', sans-serif;
+    /* Audiowide reads wider per character — scale down for visual balance */
+    font-size: 0.78em;
+    letter-spacing: 0.01em;
+}
 .home-hero .tagline {
     font-size: 1.1rem;
     opacity: 0.7;

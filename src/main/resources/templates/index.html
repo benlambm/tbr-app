@@ -7,7 +7,11 @@
 <div th:replace="~{fragments/layout :: flash}"></div>
 
 <header class="home-hero">
-    <h1>To Be Read. To Be Watched. To Be Heard.</h1>
+    <h1 class="hero-poem">
+        <span class="line line-books">TBR ~ To Be Read</span>
+        <span class="line line-movies">TBW ~ To Be Watched</span>
+        <span class="line line-music">TBL ~ To Be Listened</span>
+    </h1>
     <p class="tagline">Three lists, three moods. Add a book, a movie, or a record. Forget about it for a while. Come back when you're in the right headspace.</p>
     <div class="count">
         <span th:text="${totalCount}">0</span> items on the list
@@ -19,7 +23,7 @@
     <a href="/books" class="home-section books">
         <div class="home-section-header">
             <span class="label">Section I</span>
-            <h2 style="font-family: 'Cormorant Garamond', serif;">Books</h2>
+            <h2 style="font-family: 'Cormorant Garamond', serif;">Books (TBR)</h2>
         </div>
         <ul class="home-section-list">
             <li th:each="b : ${books}" th:classappend="${b.completed} ? 'completed' : ''">
@@ -36,7 +40,7 @@
     <a href="/movies" class="home-section movies">
         <div class="home-section-header">
             <span class="label">Section II</span>
-            <h2 style="font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.05em;">Movies</h2>
+            <h2 style="font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.05em;">Movies/TV (TBW)</h2>
         </div>
         <ul class="home-section-list">
             <li th:each="m : ${movies}" th:classappend="${m.completed} ? 'completed' : ''">
@@ -53,7 +57,7 @@
     <a href="/music" class="home-section music">
         <div class="home-section-header">
             <span class="label">Section III</span>
-            <h2 style="font-family: 'Audiowide', sans-serif;">Music</h2>
+            <h2 style="font-family: 'Audiowide', sans-serif;">Music (TBL)</h2>
         </div>
         <ul class="home-section-list">
             <li th:each="t : ${music}" th:classappend="${t.completed} ? 'completed' : ''">
