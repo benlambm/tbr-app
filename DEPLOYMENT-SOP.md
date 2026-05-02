@@ -12,11 +12,11 @@
 
 | Layer | Tool | Why |
 |---|---|---|
-| Code hosting | **GitHub** | Free, integrates with Render's auto-deploy |
-| Build & host | **Render** (Docker, Free tier) | No credit card, auto-deploy from `main` |
-| Production DB | **Neon Postgres** (Free tier) | 0.5GB, no expiration, no credit card |
-| Local dev DB | **H2 in-memory** | Zero setup, fast restarts, satisfies the assignment requirement |
-| Environment switch | `SPRING_PROFILES_ACTIVE=prod` | Same code, different DB per environment |
+| Source Code hosting | **GitHub** | Free, integrates with Render's auto-deploy |
+| Build & web hosting | **Render** (Docker, Free tier) | No credit card, auto-deploy from `main` |
+| Production database | **Neon Postgres** (Free tier) | 0.5GB, no expiration, no credit card, for deploying with a 'prod' profile|
+| Local dev database | **H2 in-memory** | While developing locally for testing in a 'dev' profile |
+
 
 > **Why not just use H2 in production?** Render's free tier has an **ephemeral filesystem** — the container is destroyed and recreated on every redeploy and every cold-start spin-up. A file-based H2 database on that filesystem gets wiped. Postgres lives in Neon (not in Render's container), so your data survives. Spring profiles let you keep H2 locally and Postgres in production with zero code changes.
 
