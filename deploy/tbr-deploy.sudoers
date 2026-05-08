@@ -1,0 +1,19 @@
+# /etc/sudoers.d/tbr-deploy
+# Install with: sudo visudo -f /etc/sudoers.d/tbr-deploy
+# (visudo validates syntax; a typo in this file can lock you out of sudo.)
+#
+# Grants the GitHub Actions deploy user (`deploy`) the minimum sudo rights
+# needed by .github/workflows/deploy.yml — no shell, no broad root access.
+#
+# Why each line:
+#   1. systemctl restart/status/is-active/journalctl on the tbr unit only —
+#      the deploy script restarts the service and tails logs on failure.
+#   2. chown the incoming JAR to tbr:tbr so the service user can read it.
+#   3. Run anything as the `tbr` service user — needed for the atomic
+#      file swap (mv app.jar app.jar.prev, mv incoming/app.jar app.jar)
+#      and the CDS training run that regenerates app.jsa. Safe because
+#      `tbr` is a no-shell service user (useradd -r -s /usr/sbin/nologin).
+
+deploy ALL=(root) NOPASSWD: /bin/systemctl restart tbr, /bin/systemctl status tbr, /bin/systemctl is-active * tbr, /bin/journalctl -u tbr *
+deploy ALL=(root) NOPASSWD: /bin/chown tbr\:tbr /opt/tbr/incoming/app.jar
+deploy ALL=(tbr)  NOPASSWD: ALL
