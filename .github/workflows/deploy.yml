@@ -56,10 +56,15 @@ jobs:
 
             # Regenerate CDS archive against the new JAR (~10s training run).
             # Loads beans, hits onRefresh, exits — nothing is served during this.
+            # Use the same JVM that the systemd unit runs (Temurin 25). CDS
+            # archives are not portable across JVM versions — if this used
+            # the system `java` (OpenJDK 21 on this VPS), the runtime Java
+            # 25 would reject the archive and silently fall back to no-CDS.
             sudo -u tbr bash -c 'set -a; source /opt/tbr/.env; set +a; \
-              java -XX:ArchiveClassesAtExit=/opt/tbr/app.jsa \
-                   -Dspring.context.exit=onRefresh \
-                   -jar /opt/tbr/app.jar' || true
+              /usr/lib/jvm/temurin-25-jdk-amd64/bin/java \
+                -XX:ArchiveClassesAtExit=/opt/tbr/app.jsa \
+                -Dspring.context.exit=onRefresh \
+                -jar /opt/tbr/app.jar' || true
 
             sudo systemctl restart tbr
             sleep 5
