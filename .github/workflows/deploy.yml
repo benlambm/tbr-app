@@ -1,0 +1,66 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-prod
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '25'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Test
+        run: mvn -B test
+
+      - name: Package
+        run: |
+          mvn -B clean package -DskipTests
+          cp target/tbr-app-*.jar app.jar
+
+      - name: SCP JAR to VPS
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host:     ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key:      ${{ secrets.VPS_SSH_KEY }}
+          source:   app.jar
+          target:   /opt/tbr/incoming/
+
+      - name: Swap & restart
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host:     ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key:      ${{ secrets.VPS_SSH_KEY }}
+          script_stop: true
+          script: |
+            set -euo pipefail
+            cd /opt/tbr
+
+            # Atomic swap; keep previous JAR for one-command rollback
+            sudo chown tbr:tbr incoming/app.jar
+            [ -f app.jar ] && sudo -u tbr mv app.jar app.jar.prev
+            sudo -u tbr mv incoming/app.jar app.jar
+
+            # Regenerate CDS archive against the new JAR (~10s training run).
+            # Loads beans, hits onRefresh, exits — nothing is served during this.
+            sudo -u tbr bash -c 'set -a; source /opt/tbr/.env; set +a; \
+              java -XX:ArchiveClassesAtExit=/opt/tbr/app.jsa \
+                   -Dspring.context.exit=onRefresh \
+                   -jar /opt/tbr/app.jar' || true
+
+            sudo systemctl restart tbr
+            sleep 5
+            sudo systemctl is-active --quiet tbr || (sudo journalctl -u tbr -n 50 --no-pager; exit 1)
