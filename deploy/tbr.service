@@ -1,0 +1,36 @@
+[Unit]
+Description=TBR Spring Boot App
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=tbr
+Group=tbr
+WorkingDirectory=/opt/tbr
+EnvironmentFile=/opt/tbr/.env
+ExecStart=/usr/lib/jvm/temurin-25-jdk-amd64/bin/java \
+    -XX:SharedArchiveFile=/opt/tbr/app.jsa \
+    -XX:MaxRAMPercentage=75.0 \
+    -jar /opt/tbr/app.jar
+
+Restart=on-failure
+RestartSec=5
+SuccessExitStatus=143
+
+# Hardening
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/tbr
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=tbr
+
+[Install]
+WantedBy=multi-user.target
