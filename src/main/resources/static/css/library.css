@@ -71,12 +71,16 @@ body {
         yeti-walk 28s linear infinite,
         yeti-bob  0.55s ease-in-out infinite alternate;
 }
+/* The 🫈 glyph faces left at its default scaleX(1) on most fonts, so the
+   "walking right" leg needs scaleX(-1) to flip him forward, and the
+   "walking left" leg needs scaleX(1) (default) — the opposite of what
+   you'd expect from intuition. */
 @keyframes yeti-walk {
-    0%   { left: -12%; transform: scaleX(1); }
-    49%  { left: 102%; transform: scaleX(1); }
-    50%  { left: 102%; transform: scaleX(-1); }
-    99%  { left: -12%; transform: scaleX(-1); }
-    100% { left: -12%; transform: scaleX(1); }
+    0%   { left: -12%; transform: scaleX(-1); }
+    49%  { left: 102%; transform: scaleX(-1); }
+    50%  { left: 102%; transform: scaleX(1); }
+    99%  { left: -12%; transform: scaleX(1); }
+    100% { left: -12%; transform: scaleX(-1); }
 }
 /* `translate` is the standalone CSS property — it composes with the
    `transform` flip above without overwriting it. */
