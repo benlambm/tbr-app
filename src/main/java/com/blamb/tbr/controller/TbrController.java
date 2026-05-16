@@ -123,10 +123,17 @@ public class TbrController {
             model.addAttribute("formMode", "Edit");
             return "add";
         }
-        item.setId(id);
-        service.save(item);
-        redirectAttributes.addFlashAttribute("flash", "Updated \"" + item.getTitle() + "\".");
-        return "redirect:/" + item.getCategory().getSlug();
+        // The edit form only submits title/creator/category/notes. Load the
+        // existing row and copy those fields over so we don't clobber addedAt
+        // (NOT NULL — would 500) or completed (would silently reset to false).
+        TbrItem existing = service.findById(id);
+        existing.setTitle(item.getTitle());
+        existing.setCreator(item.getCreator());
+        existing.setCategory(item.getCategory());
+        existing.setNotes(item.getNotes());
+        service.save(existing);
+        redirectAttributes.addFlashAttribute("flash", "Updated \"" + existing.getTitle() + "\".");
+        return "redirect:/" + existing.getCategory().getSlug();
     }
 
     // -------- Delete / Toggle --------

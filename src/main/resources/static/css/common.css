@@ -319,6 +319,148 @@ a { color: inherit; }
     }
 }
 
+/* --- Error page (templates/error.html) --- */
+.error-page {
+    max-width: 760px;
+    margin: 3rem auto;
+    padding: 2.5rem 2rem 4rem;
+    text-align: center;
+}
+.error-status {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.85rem;
+    padding: 0.45rem 1.1rem 0.55rem;
+    background: #1a1a1a;
+    color: #ffbe0b;
+    border-radius: 4px;
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 1.75rem;
+}
+.error-status .error-code {
+    font-size: 1.8rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+}
+.error-status .error-label {
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.85;
+}
+.error-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 500;
+    line-height: 1.1;
+    margin: 0 0 1rem;
+}
+.error-tagline {
+    font-size: 1.05rem;
+    line-height: 1.55;
+    opacity: 0.72;
+    max-width: 56ch;
+    margin: 0 auto 2.25rem;
+}
+.error-details {
+    text-align: left;
+    background: #fafaf7;
+    border: 1px solid #d1cfc8;
+    border-radius: 6px;
+    padding: 1rem 1.25rem;
+    margin: 0 auto 2rem;
+    max-width: 620px;
+}
+.error-details > summary {
+    cursor: pointer;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    list-style: none;
+    padding: 0.25rem 0;
+}
+.error-details > summary::-webkit-details-marker { display: none; }
+.error-details > summary::before {
+    content: "▸ ";
+    display: inline-block;
+    margin-right: 0.3em;
+    transition: transform 0.15s;
+}
+.error-details[open] > summary::before { content: "▾ "; }
+.error-details dl {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.5rem 1.1rem;
+    margin: 1rem 0 0;
+}
+.error-details dt {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.55;
+    align-self: start;
+    padding-top: 0.1rem;
+}
+.error-details dd {
+    margin: 0;
+    word-break: break-word;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85rem;
+}
+.error-trace {
+    margin: 1rem 0 0;
+    padding: 1rem;
+    background: #1a1a1a;
+    color: #e8e8e8;
+    border-radius: 4px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    line-height: 1.55;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    max-height: 360px;
+    overflow-y: auto;
+    text-align: left;
+}
+.error-trace-hint {
+    margin: 1rem 0 0;
+    font-size: 0.85rem;
+    opacity: 0.65;
+}
+.error-trace-hint code {
+    background: #1a1a1a;
+    color: #ffbe0b;
+    padding: 0.12rem 0.45rem;
+    border-radius: 3px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.82rem;
+}
+.error-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+.error-actions .btn-primary,
+.error-actions .btn-secondary {
+    padding: 0.7rem 1.4rem;
+    font-size: 0.85rem;
+    text-decoration: none;
+    display: inline-block;
+}
+.error-footnote {
+    font-size: 0.85rem;
+    opacity: 0.6;
+}
+.error-footnote a {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+}
+
 /* --- Homepage three-section grid --- */
 .home-hero {
     text-align: center;
