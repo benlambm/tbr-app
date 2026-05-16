@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Plot twist — TBR', null)}"></head>
+<body>
+
+<nav th:replace="~{fragments/layout :: nav}"></nav>
+
+<main class="error-page">
+
+    <div class="error-status">
+        <span class="error-code" th:text="${status} ?: '???'">500</span>
+        <span class="error-label" th:text="${error} ?: 'Something broke'">Internal Server Error</span>
+    </div>
+
+    <h1 class="error-headline" th:switch="${#strings.toString(status)}">
+        <span th:case="'404'">This page wandered off the bookshelf.</span>
+        <span th:case="'403'">The bouncer at the disco club says no.</span>
+        <span th:case="'400'">That request didn't make it past the editor.</span>
+        <span th:case="'405'">Wrong method, wrong door.</span>
+        <span th:case="'500'">The projector caught fire mid-screening.</span>
+        <span th:case="'503'">Intermission. We'll be right back.</span>
+        <span th:case="*">Plot twist. Something went wrong.</span>
+    </h1>
+
+    <p class="error-tagline" th:switch="${#strings.toString(status)}">
+        <span th:case="'404'">
+            We searched every shelf, every screening, every record bin.
+            Whatever you were looking for, it's not here.
+        </span>
+        <span th:case="'403'">
+            Members only past this rope.
+            Either you don't have a ticket or your name fell off the list.
+        </span>
+        <span th:case="'500'">
+            The film snapped, the bass amp blew, and somebody's chapter
+            is missing the last page. Bear with us while we splice it
+            back together.
+        </span>
+        <span th:case="*">
+            An unscheduled intermission. We're rolling credits early on this one.
+        </span>
+    </p>
+
+    <details class="error-details" th:if="${path != null or message != null or exception != null}">
+        <summary>Show me the gory details</summary>
+        <dl>
+            <th:block th:if="${path}">
+                <dt>Where</dt>
+                <dd th:text="${path}">/edit/13</dd>
+            </th:block>
+            <th:block th:if="${message != null and !#strings.isEmpty(message)}">
+                <dt>What broke</dt>
+                <dd th:text="${message}">message</dd>
+            </th:block>
+            <th:block th:if="${exception}">
+                <dt>Type</dt>
+                <dd th:text="${exception}">java.lang.RuntimeException</dd>
+            </th:block>
+            <th:block th:if="${timestamp}">
+                <dt>When</dt>
+                <dd th:text="${timestamp}">2026-05-16</dd>
+            </th:block>
+        </dl>
+
+        <pre th:if="${trace}" th:text="${trace}" class="error-trace">stack trace here</pre>
+
+        <p th:unless="${trace}" class="error-trace-hint">
+            Want the full stack trace? Append
+            <code>?trace=true</code>
+            to the URL.
+        </p>
+    </details>
+
+    <div class="error-actions">
+        <a href="/" class="btn-primary">Back to the lobby</a>
+        <a href="/books" class="btn-secondary">The Library</a>
+        <a href="/movies" class="btn-secondary">The Cinema</a>
+        <a href="/music" class="btn-secondary">The Disco Club</a>
+    </div>
+
+    <p class="error-footnote">
+        If this keeps happening,
+        <a href="https://github.com/benlambm/tbr-app/issues/new" target="_blank" rel="noopener">file an issue</a>
+        and tell us what you were doing.
+    </p>
+
+</main>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+
+</body>
+</html>
