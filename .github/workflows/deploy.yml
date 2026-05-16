@@ -3,6 +3,13 @@ name: Build & Deploy
 on:
   push:
     branches: [main]
+    # Docs-only changes don't produce a new JAR — skip the build+deploy cycle.
+    # workflow_dispatch is still available below for manual reruns if needed.
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - '.gitignore'
+      - 'LICENSE'
   workflow_dispatch:
 
 concurrency:
