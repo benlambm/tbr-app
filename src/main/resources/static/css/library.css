@@ -31,10 +31,77 @@ body {
 
 .theme-header {
     text-align: center;
-    padding: 3.5rem 2rem 2rem;
+    /* Extra top padding reserves a lane for the walking yeti so he
+       doesn't overlap the "A Catalog of" pre-label. */
+    padding: 7rem 2rem 2rem;
     border-bottom: 3px double var(--wood);
     margin-bottom: 3rem;
     position: relative;
+    min-height: 320px;
+}
+/* Lift the title stack above the fantasy stage (stage uses z-index: 0). */
+.theme-library .theme-header .pre-label,
+.theme-library .theme-header h1,
+.theme-library .theme-header .subtitle {
+    position: relative;
+    z-index: 2;
+}
+
+/* Decorative fantasy layer behind the title.
+   overflow:hidden on the stage clips the yeti when he walks off-edge —
+   not on .theme-header itself, since the ::before/::after ornaments
+   sit below its bottom border and must stay visible. */
+.fantasy-stage {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* 🫈 Walking yeti — slowly traverses the header, turns around at the
+   edge, and walks back. A tiny vertical bob simulates a walking gait. */
+.fantasy-yeti {
+    position: absolute;
+    top: 0.6rem;
+    left: -12%;
+    font-size: clamp(3rem, 7vw, 5rem);
+    line-height: 1;
+    animation:
+        yeti-walk 28s linear infinite,
+        yeti-bob  0.55s ease-in-out infinite alternate;
+}
+@keyframes yeti-walk {
+    0%   { left: -12%; transform: scaleX(1); }
+    49%  { left: 102%; transform: scaleX(1); }
+    50%  { left: 102%; transform: scaleX(-1); }
+    99%  { left: -12%; transform: scaleX(-1); }
+    100% { left: -12%; transform: scaleX(1); }
+}
+/* `translate` is the standalone CSS property — it composes with the
+   `transform` flip above without overwriting it. */
+@keyframes yeti-bob {
+    from { translate: 0 0; }
+    to   { translate: 0 -5px; }
+}
+
+/* Side creatures — 🐉 dragon and 🧙 mage. Slow bob + tilt. */
+.fantasy-emoji {
+    position: absolute;
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    line-height: 1;
+    filter: drop-shadow(0 4px 8px rgba(60, 40, 23, 0.22));
+    animation: fantasy-float 4.5s ease-in-out infinite alternate;
+}
+.fantasy-emoji-left  { left: 4%;  bottom: 1.5rem; animation-delay: -0.6s; }
+.fantasy-emoji-right { right: 4%; bottom: 1.5rem; animation-delay: -2.4s; }
+@keyframes fantasy-float {
+    from { translate: 0 0;     rotate: -4deg; }
+    to   { translate: 0 -12px; rotate:  4deg; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .fantasy-yeti, .fantasy-emoji { animation: none; }
 }
 .theme-header::before, .theme-header::after {
     content: "❦";
