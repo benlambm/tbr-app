@@ -51,7 +51,13 @@ jobs:
             # Absolute paths throughout — sudoers matches on the literal
             # command string, so relative paths after `cd` would not match.
             sudo chown tbr:tbr /opt/tbr/incoming/app.jar
-            [ -f /opt/tbr/app.jar ] && sudo -u tbr mv /opt/tbr/app.jar /opt/tbr/app.jar.prev
+            # Use if/fi (not `[ -f X ] && cmd`) — under `set -e` a false test
+            # short-circuits to exit 1 and kills the whole script. That
+            # matters on the first-ever deploy (no app.jar yet) and after a
+            # partial-failure run that left app.jar renamed to .prev.
+            if [ -f /opt/tbr/app.jar ]; then
+              sudo -u tbr mv /opt/tbr/app.jar /opt/tbr/app.jar.prev
+            fi
             sudo -u tbr mv /opt/tbr/incoming/app.jar /opt/tbr/app.jar
 
             # Regenerate CDS archive against the new JAR (~10s training run).

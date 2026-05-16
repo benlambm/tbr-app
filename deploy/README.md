@@ -24,6 +24,14 @@ sudo useradd -r -s /usr/sbin/nologin -d /opt/tbr -c "TBR app" tbr
 sudo mkdir -p /opt/tbr/{incoming,current}
 sudo chown -R tbr:tbr /opt/tbr
 
+# /opt/tbr/incoming/ is the SCP staging area. The deploy user writes the
+# new JAR there, then sudo-chowns it to tbr:tbr and the tbr user moves it
+# into place. Both users need to write to this directory:
+#   - deploy (owner) to drop the JAR via SCP
+#   - tbr (group)    to remove it during the atomic swap
+sudo chown deploy:tbr /opt/tbr/incoming
+sudo chmod 775       /opt/tbr/incoming
+
 # Env file (edit JDBC URL after copying)
 sudo install -o tbr -g tbr -m 640 deploy/.env.example /opt/tbr/.env
 sudoedit /opt/tbr/.env
