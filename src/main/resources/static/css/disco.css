@@ -99,30 +99,56 @@ body::before {
     font-size: 1rem;
 }
 
-/* Disco ball */
+/* Disco ball — real 🪩 emoji with pulsating colored halos (no spin). */
 .disco-ball {
-    width: 80px; height: 80px;
+    display: block;
+    width: fit-content;
     margin: 0 auto 2rem;
-    border-radius: 50%;
-    background:
-        radial-gradient(circle at 30% 30%, #fff 0%, #c0c0c0 25%, #808080 60%, #4a4a4a 100%);
-    box-shadow:
-        0 0 40px rgba(255, 255, 255, 0.6),
-        0 0 80px rgba(255, 0, 110, 0.4),
-        inset -10px -10px 20px rgba(0,0,0,0.4);
-    position: relative;
-    animation: spin 6s linear infinite;
+    font-size: clamp(5rem, 11vw, 8rem);
+    line-height: 1;
+    /* Layered drop-shadows simulate disco lights bouncing off the ball.
+       The white inner halo stays steady; the colored outer halos cycle
+       through the floor palette via the disco-pulse animation. */
+    filter:
+        drop-shadow(0 0 10px rgba(255, 255, 255, 0.85))
+        drop-shadow(0 0 28px var(--pink))
+        drop-shadow(0 0 56px var(--purple));
+    animation: disco-pulse 2.4s ease-in-out infinite;
+    will-change: filter, transform;
 }
-.disco-ball::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    background-image:
-        repeating-linear-gradient(0deg, transparent 0, transparent 6px, rgba(0,0,0,0.3) 6px, rgba(0,0,0,0.3) 7px),
-        repeating-linear-gradient(90deg, transparent 0, transparent 6px, rgba(0,0,0,0.3) 6px, rgba(0,0,0,0.3) 7px);
+@keyframes disco-pulse {
+    0%, 100% {
+        transform: scale(1);
+        filter:
+            drop-shadow(0 0 10px rgba(255, 255, 255, 0.85))
+            drop-shadow(0 0 28px var(--pink))
+            drop-shadow(0 0 56px var(--purple));
+    }
+    25% {
+        transform: scale(1.06);
+        filter:
+            drop-shadow(0 0 12px rgba(255, 255, 255, 1))
+            drop-shadow(0 0 36px var(--yellow))
+            drop-shadow(0 0 64px var(--orange));
+    }
+    50% {
+        transform: scale(1);
+        filter:
+            drop-shadow(0 0 10px rgba(255, 255, 255, 0.85))
+            drop-shadow(0 0 30px var(--blue))
+            drop-shadow(0 0 60px var(--purple));
+    }
+    75% {
+        transform: scale(1.06);
+        filter:
+            drop-shadow(0 0 12px rgba(255, 255, 255, 1))
+            drop-shadow(0 0 36px var(--pink))
+            drop-shadow(0 0 64px var(--yellow));
+    }
 }
-@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+    .disco-ball { animation: none; }
+}
 
 /* Item cards: holographic vinyl records */
 .item-card {
